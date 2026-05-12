@@ -392,7 +392,7 @@ textarea::placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 480px;
+  min-height: 560px;
   position: relative;
 }
 
@@ -490,6 +490,8 @@ textarea::placeholder {
   border-radius: 12px;
   min-width: 200px;
   justify-content: center;
+  order: -1;
+  margin-bottom: 5px;
 }
 
 .selected-label {

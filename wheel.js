@@ -23,8 +23,8 @@ class Wheel {
   _resize() {
     const parent = this.canvas.parentElement;
     const isFull = document.fullscreenElement || document.webkitFullscreenElement;
-    const maxDim = isFull ? Math.min(parent.clientWidth * 0.9, window.innerHeight * 0.78) : Math.min(parent.clientWidth, window.innerHeight * 0.55);
-    const maxSize = Math.min(maxDim, 700);
+    const maxDim = isFull ? Math.min(parent.clientWidth * 0.9, window.innerHeight * 0.85) : Math.min(parent.clientWidth, window.innerHeight * 0.65);
+    const maxSize = Math.min(maxDim, 800);
     const size = Math.max(300, maxSize);
     const dpr = window.devicePixelRatio || 1;
     this.canvas.width = size * dpr;

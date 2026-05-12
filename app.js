@@ -145,6 +145,166 @@ class Confetti {
 
 const _Swal = typeof Swal !== "undefined" ? Swal : null;
 
+const HG_DATA = {
+  history: {
+    title: "مكون التاريخ",
+    lessons: [
+      {
+        title: "1. التحولات الاقتصادية والمالية والاجتماعية والفكرية في العالم خلال القرن 19",
+        subtitles: [
+          "أ. الانعكاسات الاجتماعية والفكرية لتطور الاقتصاد الرأسمالي خلال القرن 19",
+          "ب. العوامل المفسرة للتحولات الاقتصادية",
+          "ج. مظاهر التحولات الاقتصادية والمالية"
+        ]
+      },
+      {
+        title: "2. التنافس الامبريالي واندلاع الحرب العالمية الأولى",
+        subtitles: [
+          "أ. أساليب ووسائل التنافس",
+          "ب. الأزمات الدولية واندلاع الحرب العالمية الأولى",
+          "ج. مظاهر ومناطق التنافس الإمبريالي"
+        ]
+      },
+      {
+        title: "3. أوربا من نهاية الحرب العالمية الأولى الى أزمة 1929",
+        subtitles: [
+          "أ. آثار أزمة 1929 م على أوربا",
+          "ب. أهم التطورات بأوربا من نهاية الحرب العالمية الأولى إلى أزمة 1929 م",
+          "ج. نتائج الحرب العالمية الأولى والثورة البلشفية الاشتراكية 1917 وأهم التطورات السياسية بروسيا"
+        ]
+      },
+      {
+        title: "4. الحرب العالمية الثانية الأسباب والنتائج",
+        subtitles: [
+          "أ. أسباب الحرب العالمية الثانية",
+          "ب. نتائج الحرب العالمية الثانية"
+        ]
+      },
+      {
+        title: "5. الضغوط الاستعمارية على المغرب ومحاولات الإصلاح خلال القرن 19م",
+        subtitles: [
+          "أ. الضغوط الأجنبية وعوامل محدوديتها",
+          "ب. الضغوطات العسكرية والدبلوماسية لانتزاع امتيازات تجارية",
+          "ج. ضغوط وسياسية أوربية في حق المغرب خلال القرن 19م",
+          "د. محاولات إصلاحية مغربية لمواجهة الضغوط"
+        ]
+      },
+      {
+        title: "6. نظام الحماية بالمغرب والاستغلال الاستعماري",
+        subtitles: [
+          "أ. الظروف التاريخية في فرض الحماية الفرنسية على المغرب",
+          "ب. المقاومة المسلحة المغربية ومراحل الاحتلال العسكري",
+          "ج. مظاهر الاستغلال الاستعماري وانعكاساته على المغرب"
+        ]
+      },
+      {
+        title: "7. نضال المغرب من أجل الاستقلال واستكمال الوحدة الترابية",
+        subtitles: [
+          "أ. ظروف نشأة الحركة الوطنية ومطالبها الإصلاحية خلال الثلاثينات",
+          "ب. مراحل وأساليب استكمال المغرب لوحدته الترابية (1956-1979)",
+          "ج. مراحل ومجهودات الحركة الوطنية من أجل الاستقلال (1939-1956)"
+        ]
+      },
+      {
+        title: "8. تاريخ المشرق العربي",
+        subtitles: [
+          "أ. التيارات الفكرية بالمشرق العربي",
+          "ب. دوافع ظهور النهضة الفكرية بالمشرق العربي",
+          "ج. دور اليقظة الفكرية في التطورات الفكرية التي عرفها المشرق العربي"
+        ]
+      }
+    ]
+  },
+  geography: {
+    title: "مكون الجغرافيا",
+    lessons: [
+      {
+        title: "1. مفهوم التنمية: تعدد المقاربات، التقسيمات الكبرى للعالم (خريطة التنمية)",
+        subtitles: [
+          "أ. التقسيمات الكبرى للعالم من خلال خريطة التنمية",
+          "ب. المقاربات في تحديد ودراسة مفهوم التنمية",
+          "ج. مفهوم التنمية"
+        ]
+      },
+      {
+        title: "2. المجال المغربي: الموارد الطبيعية والبشرية",
+        subtitles: [
+          "أ. أساليب تدبير الموارد البشرية",
+          "ب. أساليب تدبير الموارد الطبيعية",
+          "ج. وضعية الموارد البشرية بالمغرب",
+          "د. وضعية الموارد الطبيعية بالمغرب"
+        ]
+      },
+      {
+        title: "3. التهيئة الحضرية والريفية: أزمة المدينة والريف وأشكال التدخل",
+        subtitles: [
+          "أ. أشكال التدخل لمعالجة أزمة الأرياف المغربية",
+          "ب. أشكال التدخل لمعالجة أزمة المدينة المغربية",
+          "ج. عوامل أزمة الأرياف المغربية",
+          "د. عوامل أزمة المدينة المغربية",
+          "هـ. مظاهر أزمة الأرياف المغربية",
+          "و. مظاهر أزمة المدينة المغربية"
+        ]
+      },
+      {
+        title: "4. الاختيارات الكبرى لسياسة إعداد التراب الوطني",
+        subtitles: [
+          "أ. الاختيارات الكبرى لسياسة إعداد التراب الوطني",
+          "ب. المبادئ الموجهة لسياسة إعداد التراب الوطني",
+          "ج. مفهوم سياسة إعداد التراب الوطني"
+        ]
+      },
+      {
+        title: "5. العالم العربي: مشكل الماء وظاهرة التصحر",
+        subtitles: [
+          "أ. تدابير مواجهة التصحر بالعالم العربي",
+          "ب. تدابير مواجهة مشكل الماء بالعالم العربي",
+          "ج. عوامل التصحر بالعالم العربي",
+          "د. عوامل الخصاص المائي بالعالم العربي",
+          "هـ. مظاهر التصحر بالعالم العربي",
+          "و. مظاهر الخصاص المائي بالعالم العربي"
+        ]
+      },
+      {
+        title: "6. الاتحاد الأوروبي: نحو اندماج شامل",
+        subtitles: [
+          "أ. حصيلة الاندماج الأوروبي وتحدياته",
+          "ب. عوامل اندماج بلدان الاتحاد الأوروبي",
+          "ج. مظاهر اندماج بلدان الاتحاد الأوروبي"
+        ]
+      },
+      {
+        title: "7. الولايات المتحدة الأمريكية: قوة اقتصادية عظمى",
+        subtitles: [
+          "أ. التحديات التي تواجه الاقتصاد الأمريكي",
+          "ب. العوامل المفسرة لقوة الاقتصاد الأمريكي",
+          "ج. مظاهر قوة الاقتصاد الأمريكي"
+        ]
+      },
+      {
+        title: "8. الصين قوة اقتصادية صاعدة",
+        subtitles: [
+          "أ. التحديات التي تواجه الاقتصاد الصيني",
+          "ب. العوامل المفسرة لقوة الاقتصاد الصيني",
+          "ج. مظاهر قوة الاقتصاد الصيني"
+        ]
+      }
+    ]
+  }
+};
+
+function getRandomHG() {
+  const components = Object.values(HG_DATA);
+  const component = components[Math.floor(Math.random() * components.length)];
+  const lesson = component.lessons[Math.floor(Math.random() * component.lessons.length)];
+  const subtitle = lesson.subtitles[Math.floor(Math.random() * lesson.subtitles.length)];
+  return {
+    componentName: component.title,
+    lessonName: lesson.title,
+    subtitleName: subtitle
+  };
+}
+
 class App {
   constructor() {
     this.currentClass = "1 BAC SM 2";
@@ -511,21 +671,85 @@ class App {
     this.confetti.burst();
 
     if (_Swal) {
+      const initialHg = getRandomHG();
+      const htmlContent = `
+        <div class="swal-student-name">${name}</div>
+        <div id="hg-random-container" class="hg-container" dir="rtl">
+          <div class="hg-item hg-component">
+             <span class="hg-label">المكون:</span>
+             <span class="hg-val hg-highlight hg-hidden" id="hg-val-1"></span>
+          </div>
+          <div class="hg-item hg-lesson">
+             <span class="hg-label">الدرس:</span>
+             <span class="hg-val hg-hidden" id="hg-val-2"></span>
+          </div>
+          <div class="hg-item hg-subtitle">
+             <span class="hg-label">المحور:</span>
+             <span class="hg-val hg-hidden" id="hg-val-3"></span>
+          </div>
+          <button id="hg-retry-btn" class="swal-retry-btn hg-hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.6L2.5 8"/></svg>
+            إعادة المحاولة (مرة واحدة)
+          </button>
+        </div>
+      `;
+
+      const doReveal = (hgData, isRetry = false) => {
+        const v1 = document.getElementById("hg-val-1");
+        const v2 = document.getElementById("hg-val-2");
+        const v3 = document.getElementById("hg-val-3");
+        const btn = document.getElementById("hg-retry-btn");
+        
+        if (v1) { v1.className = "hg-val hg-highlight hg-hidden"; v1.textContent = hgData.componentName; }
+        if (v2) { v2.className = "hg-val hg-hidden"; v2.textContent = hgData.lessonName; }
+        if (v3) { v3.className = "hg-val hg-hidden"; v3.textContent = hgData.subtitleName; }
+        
+        if (isRetry && btn) {
+          btn.style.display = "none";
+        } else if (btn) {
+          btn.className = "swal-retry-btn hg-hidden";
+        }
+
+        setTimeout(() => {
+          if (v1) { v1.classList.remove("hg-hidden"); v1.classList.add("hg-revealed"); this.sound.playTick(); }
+        }, 500);
+
+        setTimeout(() => {
+          if (v2) { v2.classList.remove("hg-hidden"); v2.classList.add("hg-revealed"); this.sound.playTick(); }
+        }, 2500);
+
+        setTimeout(() => {
+          if (v3) { v3.classList.remove("hg-hidden"); v3.classList.add("hg-revealed"); this.sound.playCelebration(); }
+          if (!isRetry && btn) {
+            setTimeout(() => { btn.classList.remove("hg-hidden"); btn.classList.add("hg-revealed"); }, 800);
+          }
+        }, 4500);
+      };
+
       _Swal.fire({
         title: "The Selected",
-        text: name,
+        html: htmlContent,
         iconHtml: "👤",
+        showConfirmButton: true,
         confirmButtonText: "Continue",
         confirmButtonColor: "#2563eb",
         background: "#1a2332",
         color: "#e2e8f0",
         backdrop: "rgba(0,0,0,0.6)",
-        timer: 5000,
-        timerProgressBar: true,
         customClass: {
           popup: "swal-custom-popup",
           title: "swal-custom-title",
-          confirmButton: "swal-custom-btn"
+          confirmButton: "swal-custom-btn",
+          htmlContainer: "swal-custom-html"
+        },
+        didOpen: () => {
+          doReveal(initialHg, false);
+          const retryBtn = document.getElementById("hg-retry-btn");
+          if (retryBtn) {
+            retryBtn.addEventListener("click", () => {
+              doReveal(getRandomHG(), true);
+            });
+          }
         }
       });
     }
@@ -593,15 +817,15 @@ class App {
         </div>
         <hr class="swal-divider">
         <div class="swal-reset-section">
-          <p class="swal-reset-title">Reset Data</p>
+          <p class="swal-reset-title">Restore Defaults (From File)</p>
           <div class="swal-reset-actions">
             <button class="swal-reset-btn swal-reset-warning swal-reset-class-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-              Reset This Class
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Restore Class
             </button>
             <button class="swal-reset-btn swal-reset-danger swal-reset-all-btn">
-              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-              Reset All
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+              Factory Reset All
             </button>
           </div>
         </div>
@@ -656,13 +880,13 @@ class App {
 
         popup.querySelector(".swal-reset-class-btn")?.addEventListener("click", () => {
           _Swal.fire({
-            title: "Reset Class?",
-            text: `Reset ${this.currentClass} to default students?`,
+            title: "Restore Class?",
+            text: `Restore ${this.currentClass} to default students from file?`,
             icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#f59e0b",
             cancelButtonColor: "#64748b",
-            confirmButtonText: "Reset",
+            confirmButtonText: "Restore",
             background: "#1a2332",
             color: "#e2e8f0"
           }).then((res) => {
@@ -676,20 +900,19 @@ class App {
 
         popup.querySelector(".swal-reset-all-btn")?.addEventListener("click", () => {
           _Swal.fire({
-            title: "Reset Everything?",
-            text: "All class data will be permanently deleted.",
+            title: "Factory Reset All?",
+            text: "All stored changes will be removed. The page will reload to apply defaults.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#ef4444",
             cancelButtonColor: "#64748b",
-            confirmButtonText: "Delete All",
+            confirmButtonText: "Reset & Reload",
             background: "#1a2332",
             color: "#e2e8f0"
           }).then((res) => {
             if (res.isConfirmed) {
               storage.resetAll();
-              this._selectClass(this.currentClass);
-              _Swal.close();
+              location.reload();
             }
           });
         });
@@ -701,10 +924,26 @@ class App {
 document.addEventListener("DOMContentLoaded", () => {
   const style = document.createElement("style");
   style.textContent = `
-    .swal-custom-popup { border-radius: 20px !important; padding: 28px 24px 20px !important; width: 340px !important; }
-    .swal-custom-popup .swal2-icon { font-size: 2.5rem !important; width: auto !important; height: auto !important; border: none !important; margin: 0 0 8px !important; }
-    .swal-custom-title { font-size: 1.5rem !important; font-weight: 800 !important; padding: 0 !important; }
-    .swal-custom-btn { border-radius: 12px !important; font-weight: 600 !important; padding: 10px 24px !important; font-size: 0.85rem !important; }
+    .swal-custom-popup { border-radius: 20px !important; padding: 24px 20px 16px !important; width: 440px !important; }
+    .swal-student-name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 12px; text-shadow: 0 2px 10px rgba(59,130,246,0.3); }
+    .hg-container { background: rgba(30, 41, 59, 0.7); border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: right; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .hg-item { display: flex; flex-direction: column; gap: 2px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1); min-height: 48px; justify-content: center; }
+    .hg-item:last-of-type { border-bottom: none; padding-bottom: 0; min-height: auto; }
+    .hg-label { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
+    .hg-val { font-size: 0.95rem; color: #e2e8f0; font-weight: 700; line-height: 1.3; display: inline-block; }
+    .hg-highlight { color: #60a5fa; font-size: 1.05rem; text-shadow: 0 0 15px rgba(96,165,250,0.3); }
+    .hg-hidden { opacity: 0; transform: scale(0.5); visibility: hidden; }
+    .hg-revealed { animation: surpriseReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; visibility: visible; }
+    @keyframes surpriseReveal {
+      0% { opacity: 0; transform: scale(0.3) translateY(20px); }
+      60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .swal-retry-btn { margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 8px; border-radius: 10px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
+    .swal-retry-btn:hover { background: rgba(245,158,11,0.25); transform: translateY(-1px); }
+    .swal-custom-popup .swal2-icon { font-size: 2.2rem !important; width: auto !important; height: auto !important; border: none !important; margin: 0 0 6px !important; }
+    .swal-custom-title { font-size: 1.3rem !important; font-weight: 800 !important; padding: 0 !important; margin-bottom: 10px !important;}
+    .swal-custom-btn { border-radius: 10px !important; font-weight: 600 !important; padding: 8px 20px !important; font-size: 0.85rem !important; width: 100% !important; }
     .swal-settings-popup { border-radius: 20px !important; padding: 24px 20px 18px !important; width: 420px !important; }
     .swal-settings-popup .swal2-title { font-size: 1.05rem !important; display: flex !important; align-items: center !important; gap: 8px !important; padding: 0 0 16px !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; margin-bottom: 16px !important; font-weight: 700 !important; }
     .swal-close-btn { color: #64748b !important; transition: color 0.2s !important; }
