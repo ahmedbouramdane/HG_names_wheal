@@ -147,52 +147,52 @@ const _Swal = typeof Swal !== "undefined" ? Swal : null;
 
 const HG_DATA = {
   history: {
-    title: "مكون التاريخ",
+    title: "مادة التاريخ",
     lessons: [
       {
         title: "1. التحولات الاقتصادية والمالية والاجتماعية والفكرية في العالم خلال القرن 19",
         subtitles: [
-          "أ. الانعكاسات الاجتماعية والفكرية لتطور الاقتصاد الرأسمالي خلال القرن 19",
+          "أ. مظاهر التحولات الاقتصادية والمالية للعالم الرأسمالي خلال القرن 19",
           "ب. العوامل المفسرة للتحولات الاقتصادية",
-          "ج. مظاهر التحولات الاقتصادية والمالية"
+          "ج. الانعكاسات الاجتماعية والفكرية لتطور الاقتصاد الرأسمالي"
         ]
       },
       {
-        title: "2. التنافس الامبريالي واندلاع الحرب العالمية الأولى",
+        title: "2. التنافس الإمبريالي واندلاع الحرب العالمية الأولى",
         subtitles: [
-          "أ. أساليب ووسائل التنافس",
-          "ب. الأزمات الدولية واندلاع الحرب العالمية الأولى",
-          "ج. مظاهر ومناطق التنافس الإمبريالي"
+          "أ. مظاهر ومناطق التنافس الإمبريالي",
+          "ب. أساليب ووسائل التنافس الإمبريالي",
+          "ج. الأزمات الدولية واندلاع الحرب العالمية الأولى"
         ]
       },
       {
-        title: "3. أوربا من نهاية الحرب العالمية الأولى الى أزمة 1929",
+        title: "3. أوربا من نهاية الحرب العالمية الأولى إلى أزمة 1929",
         subtitles: [
-          "أ. آثار أزمة 1929 م على أوربا",
-          "ب. أهم التطورات بأوربا من نهاية الحرب العالمية الأولى إلى أزمة 1929 م",
-          "ج. نتائج الحرب العالمية الأولى والثورة البلشفية الاشتراكية 1917 وأهم التطورات السياسية بروسيا"
+          "أ. نتائج الحرب العالمية الأولى",
+          "ب. الثورة البلشفية الاشتراكية 1917",
+          "ج. أهم التطورات السياسية بروسيا",
+          "د. آثار أزمة 1929 على أوربا"
         ]
       },
       {
-        title: "4. الحرب العالمية الثانية الأسباب والنتائج",
+        title: "4. الحرب العالمية الثانية: الأسباب والنتائج",
         subtitles: [
           "أ. أسباب الحرب العالمية الثانية",
           "ب. نتائج الحرب العالمية الثانية"
         ]
       },
       {
-        title: "5. الضغوط الاستعمارية على المغرب ومحاولات الإصلاح خلال القرن 19م",
+        title: "5. الضغوط الاستعمارية على المغرب ومحاولات الإصلاح",
         subtitles: [
-          "أ. الضغوط الأجنبية وعوامل محدوديتها",
-          "ب. الضغوطات العسكرية والدبلوماسية لانتزاع امتيازات تجارية",
-          "ج. ضغوط وسياسية أوربية في حق المغرب خلال القرن 19م",
-          "د. محاولات إصلاحية مغربية لمواجهة الضغوط"
+          "أ. الضغوط العسكرية على المغرب خلال القرن 19",
+          "ب. الضغوط الدبلوماسية وانتزاع امتيازات تجارية وسياسية أوربية بالمغرب",
+          "ج. محاولات الإصلاح بالمغرب لمواجهة الضغوط الأجنبية وعوامل محدوديتها"
         ]
       },
       {
         title: "6. نظام الحماية بالمغرب والاستغلال الاستعماري",
         subtitles: [
-          "أ. الظروف التاريخية في فرض الحماية الفرنسية على المغرب",
+          "أ. الظروف التاريخية لفرض الحماية الفرنسية على المغرب",
           "ب. المقاومة المسلحة المغربية ومراحل الاحتلال العسكري",
           "ج. مظاهر الاستغلال الاستعماري وانعكاساته على المغرب"
         ]
@@ -201,92 +201,90 @@ const HG_DATA = {
         title: "7. نضال المغرب من أجل الاستقلال واستكمال الوحدة الترابية",
         subtitles: [
           "أ. ظروف نشأة الحركة الوطنية ومطالبها الإصلاحية خلال الثلاثينات",
-          "ب. مراحل وأساليب استكمال المغرب لوحدته الترابية (1956-1979)",
-          "ج. مراحل ومجهودات الحركة الوطنية من أجل الاستقلال (1939-1956)"
+          "ب. مراحل ومجهودات الحركة الوطنية من اندلاع الحرب العالمية الثانية 1939 إلى استقلال المغرب 1956",
+          "ج. مراحل وأساليب استكمال المغرب لوحدته الترابية (1956-1979)"
         ]
       },
       {
         title: "8. تاريخ المشرق العربي",
         subtitles: [
-          "أ. التيارات الفكرية بالمشرق العربي",
-          "ب. دوافع ظهور النهضة الفكرية بالمشرق العربي",
+          "أ. دوافع ظهور النهضة الفكرية بالمشرق العربي",
+          "ب. التيارات الفكرية بالمشرق العربي",
           "ج. دور اليقظة الفكرية في التطورات الفكرية التي عرفها المشرق العربي"
         ]
       }
     ]
   },
   geography: {
-    title: "مكون الجغرافيا",
+    title: "مادة الجغرافيا",
     lessons: [
       {
-        title: "1. مفهوم التنمية: تعدد المقاربات، التقسيمات الكبرى للعالم (خريطة التنمية)",
+        title: "1. التنمية: المفهوم والتقسيمات الكبرى للعالم",
         subtitles: [
-          "أ. التقسيمات الكبرى للعالم من خلال خريطة التنمية",
+          "أ. مفهوم التنمية",
           "ب. المقاربات في تحديد ودراسة مفهوم التنمية",
-          "ج. مفهوم التنمية"
+          "ج. التقسيمات الكبرى للعالم من خلال خريطة التنمية"
         ]
       },
       {
         title: "2. المجال المغربي: الموارد الطبيعية والبشرية",
         subtitles: [
-          "أ. أساليب تدبير الموارد البشرية",
-          "ب. أساليب تدبير الموارد الطبيعية",
-          "ج. وضعية الموارد البشرية بالمغرب",
-          "د. وضعية الموارد الطبيعية بالمغرب"
+          "أ. وضعية الموارد الطبيعية بالمغرب وأساليب تدبيرها",
+          "ب. وضعية الموارد البشرية بالمغرب وأساليب تدبيرها"
         ]
       },
       {
         title: "3. التهيئة الحضرية والريفية: أزمة المدينة والريف وأشكال التدخل",
         subtitles: [
-          "أ. أشكال التدخل لمعالجة أزمة الأرياف المغربية",
-          "ب. أشكال التدخل لمعالجة أزمة المدينة المغربية",
-          "ج. عوامل أزمة الأرياف المغربية",
-          "د. عوامل أزمة المدينة المغربية",
-          "هـ. مظاهر أزمة الأرياف المغربية",
-          "و. مظاهر أزمة المدينة المغربية"
+          "أ. مظاهر أزمة المدينة المغربية",
+          "ب. عوامل أزمة المدينة المغربية",
+          "ج. أشكال التدخل لمعالجة أزمة المدينة المغربية",
+          "د. مظاهر أزمة الأرياف المغربية",
+          "هـ. عوامل أزمة الأرياف المغربية",
+          "و. أشكال التدخل لمعالجة أزمة الأرياف المغربية"
         ]
       },
       {
         title: "4. الاختيارات الكبرى لسياسة إعداد التراب الوطني",
         subtitles: [
-          "أ. الاختيارات الكبرى لسياسة إعداد التراب الوطني",
+          "أ. مفهوم سياسة إعداد التراب الوطني",
           "ب. المبادئ الموجهة لسياسة إعداد التراب الوطني",
-          "ج. مفهوم سياسة إعداد التراب الوطني"
+          "ج. الاختيارات الكبرى لسياسة إعداد التراب الوطني"
         ]
       },
       {
         title: "5. العالم العربي: مشكل الماء وظاهرة التصحر",
         subtitles: [
-          "أ. تدابير مواجهة التصحر بالعالم العربي",
-          "ب. تدابير مواجهة مشكل الماء بالعالم العربي",
-          "ج. عوامل التصحر بالعالم العربي",
-          "د. عوامل الخصاص المائي بالعالم العربي",
-          "هـ. مظاهر التصحر بالعالم العربي",
-          "و. مظاهر الخصاص المائي بالعالم العربي"
+          "أ. مظاهر الخصاص المائي بالعالم العربي",
+          "ب. عوامل الخصاص المائي بالعالم العربي",
+          "ج. تدابير مواجهة مشكل الماء بالعالم العربي",
+          "د. مظاهر التصحر بالعالم العربي",
+          "هـ. عوامل التصحر بالعالم العربي",
+          "و. تدابير مواجهة التصحر بالعالم العربي"
         ]
       },
       {
         title: "6. الاتحاد الأوروبي: نحو اندماج شامل",
         subtitles: [
-          "أ. حصيلة الاندماج الأوروبي وتحدياته",
+          "أ. مظاهر اندماج بلدان الاتحاد الأوروبي",
           "ب. عوامل اندماج بلدان الاتحاد الأوروبي",
-          "ج. مظاهر اندماج بلدان الاتحاد الأوروبي"
+          "ج. حصيلة الاندماج الأوروبي وتحدياته"
         ]
       },
       {
         title: "7. الولايات المتحدة الأمريكية: قوة اقتصادية عظمى",
         subtitles: [
-          "أ. التحديات التي تواجه الاقتصاد الأمريكي",
+          "أ. مظاهر قوة الاقتصاد الأمريكي",
           "ب. العوامل المفسرة لقوة الاقتصاد الأمريكي",
-          "ج. مظاهر قوة الاقتصاد الأمريكي"
+          "ج. التحديات التي تواجه الاقتصاد الأمريكي"
         ]
       },
       {
-        title: "8. الصين قوة اقتصادية صاعدة",
+        title: "8. الصين: قوة اقتصادية صاعدة",
         subtitles: [
-          "أ. التحديات التي تواجه الاقتصاد الصيني",
+          "أ. مظاهر قوة الاقتصاد الصيني",
           "ب. العوامل المفسرة لقوة الاقتصاد الصيني",
-          "ج. مظاهر قوة الاقتصاد الصيني"
+          "ج. التحديات التي تواجه الاقتصاد الصيني"
         ]
       }
     ]
@@ -515,8 +513,26 @@ class App {
     this.el.settingsBtn.addEventListener("click", () => this._openSettings());
     this.el.fullscreenBtn.addEventListener("click", () => this._toggleFullscreen());
 
+    document.getElementById("random-q-btn")?.addEventListener("click", () => this._showRandomQuestionOnly());
+
     document.addEventListener("fullscreenchange", () => { this._updateFullscreenIcon(); this._onFullscreenChange(); });
     document.addEventListener("webkitfullscreenchange", () => { this._updateFullscreenIcon(); this._onFullscreenChange(); });
+
+    document.body.addEventListener("click", (e) => {
+      // Don't re-trigger if click was on the fullscreen button itself (it toggles)
+      if (this.el.fullscreenBtn && this.el.fullscreenBtn.contains(e.target)) return;
+      // Don't re-trigger if click was on the random question FAB (it opens a modal)
+      const fab = document.getElementById("random-q-btn");
+      if (fab && fab.contains(e.target)) return;
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        const el = document.documentElement;
+        if (el.requestFullscreen) {
+          el.requestFullscreen().catch(() => {});
+        } else if (el.webkitRequestFullscreen) {
+          el.webkitRequestFullscreen();
+        }
+      }
+    });
 
     this._initResizeHandle();
   }
@@ -645,6 +661,90 @@ class App {
       this._hideEmpty();
       this.wheel.setNames(wheelStudents);
     }
+  }
+
+  _showRandomQuestionOnly() {
+    if (!_Swal) return;
+    const initialHg = getRandomHG();
+    const htmlContent = `
+      <div id="hg-random-container" class="hg-container" dir="rtl" style="margin-top: 5px;">
+        <div class="hg-item hg-component">
+           <span class="hg-label">المكون:</span>
+           <span class="hg-val hg-highlight hg-hidden" id="hg-val-1"></span>
+        </div>
+        <div class="hg-item hg-lesson">
+           <span class="hg-label">الدرس:</span>
+           <span class="hg-val hg-hidden" id="hg-val-2"></span>
+        </div>
+        <div class="hg-item hg-subtitle">
+           <span class="hg-label">المحور:</span>
+           <span class="hg-val hg-hidden" id="hg-val-3"></span>
+        </div>
+        <button id="hg-retry-btn" class="swal-retry-btn hg-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.6L2.5 8"/></svg>
+          إعادة المحاولة (مرة واحدة)
+        </button>
+      </div>
+    `;
+
+    const doReveal = (hgData, isRetry = false) => {
+      const v1 = document.getElementById("hg-val-1");
+      const v2 = document.getElementById("hg-val-2");
+      const v3 = document.getElementById("hg-val-3");
+      const btn = document.getElementById("hg-retry-btn");
+      
+      if (v1) { v1.className = "hg-val hg-highlight hg-hidden"; v1.textContent = hgData.componentName; }
+      if (v2) { v2.className = "hg-val hg-hidden"; v2.textContent = hgData.lessonName; }
+      if (v3) { v3.className = "hg-val hg-hidden"; v3.textContent = hgData.subtitleName; }
+      
+      if (isRetry && btn) {
+        btn.style.display = "none";
+      } else if (btn) {
+        btn.className = "swal-retry-btn hg-hidden";
+      }
+
+      setTimeout(() => {
+        if (v1) { v1.classList.remove("hg-hidden"); v1.classList.add("hg-revealed"); this.sound.playTick(); }
+      }, 500);
+
+      setTimeout(() => {
+        if (v2) { v2.classList.remove("hg-hidden"); v2.classList.add("hg-revealed"); this.sound.playTick(); }
+      }, 2500);
+
+      setTimeout(() => {
+        if (v3) { v3.classList.remove("hg-hidden"); v3.classList.add("hg-revealed"); this.sound.playCelebration(); }
+        if (!isRetry && btn) {
+          setTimeout(() => { btn.classList.remove("hg-hidden"); btn.classList.add("hg-revealed"); }, 800);
+        }
+      }, 4500);
+    };
+
+    _Swal.fire({
+      title: "سؤال عشوائي",
+      html: htmlContent,
+      iconHtml: "❓",
+      showConfirmButton: true,
+      confirmButtonText: "إغلاق",
+      confirmButtonColor: "#2563eb",
+      background: "#1a2332",
+      color: "#e2e8f0",
+      backdrop: "rgba(0,0,0,0.6)",
+      customClass: {
+        popup: "swal-custom-popup",
+        title: "swal-custom-title",
+        confirmButton: "swal-custom-btn",
+        htmlContainer: "swal-custom-html"
+      },
+      didOpen: () => {
+        doReveal(initialHg, false);
+        const retryBtn = document.getElementById("hg-retry-btn");
+        if (retryBtn) {
+          retryBtn.addEventListener("click", () => {
+            doReveal(getRandomHG(), true);
+          });
+        }
+      }
+    });
   }
 
   _spin() {

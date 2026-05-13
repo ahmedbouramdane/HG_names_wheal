@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="flex flex-col h-screen overflow-hidden">
 
   <canvas id="confetti-canvas"></canvas>
 
@@ -37,7 +37,7 @@
     </div>
   </header>
 
-  <main class="max-w-6xl mx-auto px-4 py-6 space-y-5">
+  <main class="max-w-6xl mx-auto w-full px-4 py-4 space-y-4 flex-1 flex flex-col min-h-0">
 
     <section class="class-selector-section">
       <div class="class-selector-inner">
@@ -49,9 +49,9 @@
       </div>
     </section>
 
-    <div class="main-grid" id="main-grid">
-      <div class="left-panel">
-        <section class="students-section">
+    <div class="main-grid flex-1 min-h-0" id="main-grid">
+      <div class="left-panel flex flex-col min-h-0 h-full gap-3">
+        <section class="students-section flex flex-col flex-1 min-h-0">
           <div class="students-header">
             <div class="students-header-left">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -64,7 +64,7 @@
             </button>
           </div>
 
-          <div id="student-list-display" class="student-list-display"></div>
+          <div id="student-list-display" class="student-list-display flex-1 overflow-y-auto pr-2"></div>
 
           <div id="edit-area" class="edit-area hidden">
             <textarea id="student-input" placeholder="Enter student names separated by commas..."></textarea>
@@ -74,17 +74,17 @@
           </div>
         </section>
 
-        <section id="history-section" class="history-section glass-dark hidden">
-          <div class="history-header">
+        <section id="history-section" class="history-section glass-dark hidden flex-shrink-0 flex flex-col" style="max-height: 35%;">
+          <div class="history-header flex-shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span>Recent Picks</span>
           </div>
-          <div id="history-list" class="history-list"></div>
+          <div id="history-list" class="history-list overflow-y-auto flex-1 pr-2"></div>
         </section>
       </div>
 
-      <div class="right-panel">
-        <section id="wheel-container" class="wheel-section">
+      <div class="right-panel flex flex-col min-h-0 h-full">
+        <section id="wheel-container" class="wheel-section flex flex-col flex-1 min-h-0">
           <div id="empty-state" class="empty-state">
             <div id="empty-state-icon" class="empty-state-icon">🎯</div>
             <h3 id="empty-state-title" class="text-lg font-semibold text-slate-400 mb-1">No Students Yet</h3>
@@ -102,7 +102,7 @@
               <span class="selected-label">Selected</span>
               <span class="selected-value">—</span>
             </div>
-            <div class="keyboard-hint">
+            <div class="keyboard-hint" style="display:flex; align-items:center; gap:5px; margin-top:8px;">
               <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M6 16h.01M10 16h.01M14 16h.01M18 16h.01"/></svg>
               Press <kbd>Space</kbd> to spin
             </div>
@@ -113,7 +113,7 @@
     </div>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer flex-shrink-0">
     <div class="footer-inner">
       <span>LYDEX de Rabat &mdash; History & Geography</span>
       <span class="footer-dot">•</span>
@@ -122,6 +122,19 @@
       <span>&copy; 2026</span>
     </div>
   </footer>
+
+  <!-- Floating Action Button: سؤال عشوائي مباشر -->
+  <button id="random-q-btn" class="random-q-fab" aria-label="سؤال عشوائي مباشر" title="سؤال عشوائي مباشر">
+    <span class="fab-glow"></span>
+    <span class="fab-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </span>
+    <span class="fab-label">سؤال عشوائي مباشر</span>
+  </button>
 
   <script src="storage.js"></script>
   <script src="wheel.js"></script>

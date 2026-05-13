@@ -150,9 +150,10 @@ body {
 .main-grid {
   display: grid;
   grid-template-columns: var(--left-w, 1fr) var(--right-w, 1.3fr);
-  gap: 0;
-  align-items: start;
+  gap: 16px;
+  align-items: stretch;
   position: relative;
+  height: 100%;
 }
 
 .resize-handle {
@@ -650,6 +651,106 @@ textarea::placeholder {
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #94a3b8;
 }
+
+/* ── Floating Action Button: سؤال عشوائي مباشر ─────────────────────────── */
+.random-q-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 22px 0 18px;
+  height: 54px;
+  border-radius: 27px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  direction: rtl;
+  white-space: nowrap;
+  box-shadow:
+    0 4px 24px rgba(245, 158, 11, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease,
+              padding 0.25s ease;
+  overflow: hidden;
+}
+
+/* Animated pulse ring */
+.random-q-fab .fab-glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: transparent;
+  border: 2px solid rgba(251, 191, 36, 0.55);
+  animation: fab-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes fab-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0; transform: scale(1.18); }
+}
+
+.random-q-fab .fab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.random-q-fab .fab-label {
+  position: relative;
+  z-index: 1;
+}
+
+.random-q-fab:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 8px 36px rgba(245, 158, 11, 0.6),
+    0 4px 14px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.random-q-fab:hover .fab-icon {
+  transform: rotate(15deg) scale(1.15);
+}
+
+.random-q-fab:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow:
+    0 3px 14px rgba(245, 158, 11, 0.4),
+    0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Shimmer sweep on hover */
+.random-q-fab::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.random-q-fab:hover::after {
+  transform: translateX(100%);
+}
+
 
 .site-footer {
   text-align: center;
