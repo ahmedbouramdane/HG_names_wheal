@@ -22,10 +22,11 @@ class Wheel {
 
   _resize() {
     const parent = this.canvas.parentElement;
-    const isFull = document.fullscreenElement || document.webkitFullscreenElement;
-    const maxDim = isFull ? Math.min(parent.clientWidth * 0.9, window.innerHeight * 0.85) : Math.min(parent.clientWidth, window.innerHeight * 0.65);
-    const maxSize = Math.min(maxDim, 800);
-    const size = Math.max(300, maxSize);
+    const section = parent.closest('.wheel-section') || parent.parentElement;
+    const availW = parent.clientWidth * 0.95;
+    const availH = (section ? section.clientHeight : window.innerHeight * 0.8) - 20;
+    const maxDim = Math.min(availW, availH);
+    const size = Math.max(280, Math.min(maxDim, 960));
     const dpr = window.devicePixelRatio || 1;
     this.canvas.width = size * dpr;
     this.canvas.height = size * dpr;
@@ -148,26 +149,20 @@ class Wheel {
     }
 
     ctx.beginPath();
-    ctx.arc(center, center, 24, 0, 2 * Math.PI);
+    ctx.arc(center, center, 28, 0, 2 * Math.PI);
     ctx.fillStyle = "#0f172a";
     ctx.fill();
-    ctx.strokeStyle = "rgba(255,255,255,0.12)";
+    ctx.strokeStyle = "rgba(255,255,255,0.1)";
     ctx.lineWidth = 2;
     ctx.stroke();
 
-    ctx.beginPath();
-    ctx.arc(center, center, 20, 0, 2 * Math.PI);
-    const cbGrad = ctx.createRadialGradient(center - 4, center - 4, 0, center, center, 20);
+    const cbGrad = ctx.createRadialGradient(center - 4, center - 4, 0, center, center, 24);
     cbGrad.addColorStop(0, "#2563eb");
     cbGrad.addColorStop(1, "#4f46e5");
+    ctx.beginPath();
+    ctx.arc(center, center, 24, 0, 2 * Math.PI);
     ctx.fillStyle = cbGrad;
     ctx.fill();
-
-    ctx.fillStyle = "#fff";
-    ctx.font = `bold ${Math.round(size * 0.03)}px system-ui, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("SPIN", center, center);
   }
 
   spin() {

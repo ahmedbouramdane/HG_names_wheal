@@ -295,26 +295,26 @@ function getRandomHG() {
   const components = Object.values(HG_DATA);
   const component = components[Math.floor(Math.random() * components.length)];
   const lesson = component.lessons[Math.floor(Math.random() * component.lessons.length)];
-  const subtitle = lesson.subtitles[Math.floor(Math.random() * lesson.subtitles.length)];
+  const subtitleIndex = Math.floor(Math.random() * lesson.subtitles.length);
   return {
     componentName: component.title,
     lessonName: lesson.title,
-    subtitleName: subtitle
+    subtitleName: lesson.subtitles[subtitleIndex],
+    allSubtitles: lesson.subtitles,
+    selectedIndex: subtitleIndex
   };
 }
 
 class App {
   constructor() {
     this.currentClass = "1 BAC SM 2";
-    this.editMode = false;
+    this.editMode = false;  
     this.sound = new SoundManager();
     this.confetti = new Confetti();
 
     this.wheel = new Wheel("wheel-canvas");
     this.wheel.onSpinComplete = (name) => this._onWheelComplete(name);
     this.wheel.onTick = () => this.sound.playTick();
-
-    this.pickHistory = [];
 
     this._cacheElements();
     this._populateClassSelector();
@@ -332,7 +332,6 @@ class App {
       editArea: document.getElementById("edit-area"),
       editToggleBtn: document.getElementById("edit-toggle-btn"),
       doneEditBtn: document.getElementById("done-edit-btn"),
-      spinBtn: document.getElementById("spin-btn"),
       settingsBtn: document.getElementById("settings-btn"),
       fullscreenBtn: document.getElementById("fullscreen-btn"),
       emptyState: document.getElementById("empty-state"),
@@ -340,9 +339,7 @@ class App {
       emptyTitle: document.getElementById("empty-state-title"),
       emptyDesc: document.getElementById("empty-state-desc"),
       wheelArea: document.getElementById("wheel-area"),
-      selectedValue: document.querySelector(".selected-value"),
-      historySection: document.getElementById("history-section"),
-      historyList: document.getElementById("history-list"),
+      spinBtn: document.getElementById("spin-btn"),
       mainGrid: document.getElementById("main-grid")
     };
   }
@@ -368,7 +365,6 @@ class App {
     this.editMode = false;
     this.el.editToggleBtn.classList.remove("active");
     this.el.editArea.classList.add("hidden");
-    this._clearHistory();
 
     const allStudents = storage.getStudents(className);
     const wheelStudents = storage.getStudentsForWheel(className);
@@ -388,8 +384,6 @@ class App {
       this._hideEmpty();
       this.wheel.setNames(wheelStudents);
     }
-
-    this._updateSelectedDisplay(null);
   }
 
   _showEmpty(type) {
@@ -424,7 +418,30 @@ class App {
       const isUsed = used.includes(name);
       tag.className = `student-tag${isUsed ? " used" : ""}`;
       tag.textContent = name;
-      if (isUsed) tag.title = "Already selected";
+      if (isUsed) tag.title = "Click to restore";
+      else tag.title = this.removeEnabled ? "Click to remove from wheel" : "";
+
+      if (this.removeEnabled) {
+        tag.style.cursor = "pointer";
+        tag.addEventListener("click", () => {
+          if (used.includes(name)) {
+            // Restore: remove from used
+            const idx = used.indexOf(name);
+            if (idx > -1) used.splice(idx, 1);
+            const cls = storage.getClass(this.currentClass);
+            if (cls) { cls.usedStudents = [...used]; storage.save(); }
+          } else {
+            // Remove: add to used
+            storage.addUsedStudent(this.currentClass, name);
+          }
+          const allStudents = storage.getStudents(this.currentClass);
+          const usedNow = storage.getUsedStudents(this.currentClass);
+          this._renderStudentTags(allStudents, usedNow);
+          this._updateStudentCount(allStudents, usedNow);
+          this._refreshWheel();
+        });
+      }
+
       this.el.studentListDisplay.appendChild(tag);
     });
   }
@@ -434,37 +451,6 @@ class App {
     const used = usedStudents ? usedStudents.length : 0;
     const available = total - used;
     this.el.studentCount.textContent = `${available}/${total}`;
-  }
-
-  _updateSelectedDisplay(name) {
-    if (name) {
-      this.el.selectedValue.textContent = name;
-      this.el.selectedValue.className = "selected-value highlight";
-    } else {
-      this.el.selectedValue.textContent = "—";
-      this.el.selectedValue.className = "selected-value";
-    }
-  }
-
-  _addHistory(name) {
-    this.pickHistory.unshift(name);
-    if (this.pickHistory.length > 10) this.pickHistory.pop();
-
-    this.el.historySection.classList.remove("hidden");
-    this.el.historyList.innerHTML = "";
-    this.pickHistory.forEach((h, i) => {
-      const pill = document.createElement("span");
-      pill.className = "history-pill";
-      if (i === 0) pill.classList.add("latest");
-      pill.textContent = h;
-      this.el.historyList.appendChild(pill);
-    });
-  }
-
-  _clearHistory() {
-    this.pickHistory = [];
-    this.el.historySection.classList.add("hidden");
-    this.el.historyList.innerHTML = "";
   }
 
   _bindEvents() {
@@ -644,7 +630,6 @@ class App {
     this._renderStudentTags(unique, used);
     this._updateStudentCount(unique, used);
     this._refreshWheel();
-    this._clearHistory();
   }
 
   _refreshWheel() {
@@ -667,6 +652,7 @@ class App {
     if (!_Swal) return;
     const initialHg = getRandomHG();
     const htmlContent = `
+      <div style="font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 12px; text-shadow: 0 2px 10px rgba(59,130,246,0.3);">سؤال عشوائي مباشر</div>
       <div id="hg-random-container" class="hg-container" dir="rtl" style="margin-top: 5px;">
         <div class="hg-item hg-component">
            <span class="hg-label">المكون:</span>
@@ -676,9 +662,9 @@ class App {
            <span class="hg-label">الدرس:</span>
            <span class="hg-val hg-hidden" id="hg-val-2"></span>
         </div>
-        <div class="hg-item hg-subtitle">
+        <div class="hg-item hg-subtitle" style="border-bottom: none; padding-bottom: 0;">
            <span class="hg-label">المحور:</span>
-           <span class="hg-val hg-hidden" id="hg-val-3"></span>
+           <div id="hg-subtitles-list" class="hg-subtitles-list hg-hidden"></div>
         </div>
         <button id="hg-retry-btn" class="swal-retry-btn hg-hidden">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.6L2.5 8"/></svg>
@@ -690,12 +676,18 @@ class App {
     const doReveal = (hgData, isRetry = false) => {
       const v1 = document.getElementById("hg-val-1");
       const v2 = document.getElementById("hg-val-2");
-      const v3 = document.getElementById("hg-val-3");
+      const v3 = document.getElementById("hg-subtitles-list");
       const btn = document.getElementById("hg-retry-btn");
       
       if (v1) { v1.className = "hg-val hg-highlight hg-hidden"; v1.textContent = hgData.componentName; }
       if (v2) { v2.className = "hg-val hg-hidden"; v2.textContent = hgData.lessonName; }
-      if (v3) { v3.className = "hg-val hg-hidden"; v3.textContent = hgData.subtitleName; }
+      if (v3) { 
+        v3.className = "hg-subtitles-list hg-hidden"; 
+        v3.innerHTML = hgData.allSubtitles.map((sub, idx) => {
+          const isSelected = idx === hgData.selectedIndex;
+          return `<div class="hg-subtitle-item ${isSelected ? 'hg-selected' : 'hg-disabled'}">${sub}</div>`;
+        }).join("");
+      }
       
       if (isRetry && btn) {
         btn.style.display = "none";
@@ -720,9 +712,7 @@ class App {
     };
 
     _Swal.fire({
-      title: "سؤال عشوائي",
       html: htmlContent,
-      iconHtml: "❓",
       showConfirmButton: true,
       confirmButtonText: "إغلاق",
       confirmButtonColor: "#2563eb",
@@ -753,18 +743,13 @@ class App {
 
     this.el.spinBtn.disabled = true;
     this.el.spinBtn.textContent = "...";
-    this._updateSelectedDisplay(null);
     this.wheel.spin();
   }
 
   _onWheelComplete(name) {
     this.el.spinBtn.disabled = false;
     this.el.spinBtn.textContent = "SPIN";
-
     if (!name) return;
-
-    this._updateSelectedDisplay(name);
-    this._addHistory(name);
 
     this.sound.playCelebration();
     setTimeout(() => this.sound.playApplause(), 350);
@@ -773,7 +758,10 @@ class App {
     if (_Swal) {
       const initialHg = getRandomHG();
       const htmlContent = `
-        <div class="swal-student-name">${name}</div>
+        <div class="swal-selected-header">
+          <div class="swal-selected-badge">SELECTED</div>
+          <div class="swal-student-name">${name}</div>
+        </div>
         <div id="hg-random-container" class="hg-container" dir="rtl">
           <div class="hg-item hg-component">
              <span class="hg-label">المكون:</span>
@@ -783,53 +771,57 @@ class App {
              <span class="hg-label">الدرس:</span>
              <span class="hg-val hg-hidden" id="hg-val-2"></span>
           </div>
-          <div class="hg-item hg-subtitle">
-             <span class="hg-label">المحور:</span>
-             <span class="hg-val hg-hidden" id="hg-val-3"></span>
-          </div>
-          <button id="hg-retry-btn" class="swal-retry-btn hg-hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.6L2.5 8"/></svg>
-            إعادة المحاولة (مرة واحدة)
-          </button>
+          <div class="hg-item hg-subtitle" style="border-bottom: none; padding-bottom: 0;">
+           <span class="hg-label">المحور:</span>
+           <div id="hg-subtitles-list" class="hg-subtitles-list hg-hidden"></div>
         </div>
-      `;
+        <button id="hg-retry-btn" class="swal-retry-btn hg-hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.13 15.57a9 9 0 1 0 3.87-11.6L2.5 8"/></svg>
+          إعادة المحاولة (مرة واحدة)
+        </button>
+      </div>
+    `;
 
-      const doReveal = (hgData, isRetry = false) => {
-        const v1 = document.getElementById("hg-val-1");
-        const v2 = document.getElementById("hg-val-2");
-        const v3 = document.getElementById("hg-val-3");
-        const btn = document.getElementById("hg-retry-btn");
-        
-        if (v1) { v1.className = "hg-val hg-highlight hg-hidden"; v1.textContent = hgData.componentName; }
-        if (v2) { v2.className = "hg-val hg-hidden"; v2.textContent = hgData.lessonName; }
-        if (v3) { v3.className = "hg-val hg-hidden"; v3.textContent = hgData.subtitleName; }
-        
-        if (isRetry && btn) {
-          btn.style.display = "none";
-        } else if (btn) {
-          btn.className = "swal-retry-btn hg-hidden";
+    const doReveal = (hgData, isRetry = false) => {
+      const v1 = document.getElementById("hg-val-1");
+      const v2 = document.getElementById("hg-val-2");
+      const v3 = document.getElementById("hg-subtitles-list");
+      const btn = document.getElementById("hg-retry-btn");
+      
+      if (v1) { v1.className = "hg-val hg-highlight hg-hidden"; v1.textContent = hgData.componentName; }
+      if (v2) { v2.className = "hg-val hg-hidden"; v2.textContent = hgData.lessonName; }
+      if (v3) { 
+        v3.className = "hg-subtitles-list hg-hidden"; 
+        v3.innerHTML = hgData.allSubtitles.map((sub, idx) => {
+          const isSelected = idx === hgData.selectedIndex;
+          return `<div class="hg-subtitle-item ${isSelected ? 'hg-selected' : 'hg-disabled'}">${sub}</div>`;
+        }).join("");
+      }
+      
+      if (isRetry && btn) {
+        btn.style.display = "none";
+      } else if (btn) {
+        btn.className = "swal-retry-btn hg-hidden";
+      }
+
+      setTimeout(() => {
+        if (v1) { v1.classList.remove("hg-hidden"); v1.classList.add("hg-revealed"); this.sound.playTick(); }
+      }, 500);
+
+      setTimeout(() => {
+        if (v2) { v2.classList.remove("hg-hidden"); v2.classList.add("hg-revealed"); this.sound.playTick(); }
+      }, 2500);
+
+      setTimeout(() => {
+        if (v3) { v3.classList.remove("hg-hidden"); v3.classList.add("hg-revealed"); this.sound.playCelebration(); }
+        if (!isRetry && btn) {
+          setTimeout(() => { btn.classList.remove("hg-hidden"); btn.classList.add("hg-revealed"); }, 800);
         }
-
-        setTimeout(() => {
-          if (v1) { v1.classList.remove("hg-hidden"); v1.classList.add("hg-revealed"); this.sound.playTick(); }
-        }, 500);
-
-        setTimeout(() => {
-          if (v2) { v2.classList.remove("hg-hidden"); v2.classList.add("hg-revealed"); this.sound.playTick(); }
-        }, 2500);
-
-        setTimeout(() => {
-          if (v3) { v3.classList.remove("hg-hidden"); v3.classList.add("hg-revealed"); this.sound.playCelebration(); }
-          if (!isRetry && btn) {
-            setTimeout(() => { btn.classList.remove("hg-hidden"); btn.classList.add("hg-revealed"); }, 800);
-          }
-        }, 4500);
-      };
+      }, 4500);
+    };
 
       _Swal.fire({
-        title: "The Selected",
         html: htmlContent,
-        iconHtml: "👤",
         showConfirmButton: true,
         confirmButtonText: "Continue",
         confirmButtonColor: "#2563eb",
@@ -955,6 +947,10 @@ class App {
         popup.querySelector(".swal-remove-input")?.addEventListener("change", (e) => {
           this.removeEnabled = e.target.checked;
           localStorage.setItem("lydex-remove-enabled", e.target.checked);
+          // Re-render tags immediately so click behavior updates
+          const allStudents = storage.getStudents(this.currentClass);
+          const usedStudents = storage.getUsedStudents(this.currentClass);
+          this._renderStudentTags(allStudents, usedStudents);
         });
 
         popup.querySelector(".swal-reset-wheel-btn")?.addEventListener("click", () => {
@@ -1024,9 +1020,11 @@ class App {
 document.addEventListener("DOMContentLoaded", () => {
   const style = document.createElement("style");
   style.textContent = `
-    .swal-custom-popup { border-radius: 20px !important; padding: 24px 20px 16px !important; width: 440px !important; }
-    .swal-student-name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 12px; text-shadow: 0 2px 10px rgba(59,130,246,0.3); }
-    .hg-container { background: rgba(30, 41, 59, 0.7); border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: right; display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .swal-custom-popup { border-radius: 20px !important; padding: 20px 16px 16px !important; width: 500px !important; max-width: 95vw !important; }
+    .swal-selected-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; justify-content: center; }
+    .swal-selected-badge { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px; color: #60a5fa; background: rgba(96,165,250,0.1); border: 1px solid rgba(96,165,250,0.2); padding: 3px 10px; border-radius: 6px; font-weight: 700; white-space: nowrap; }
+    .swal-student-name { font-size: 1.3rem; font-weight: 800; color: #fff; text-shadow: 0 2px 10px rgba(59,130,246,0.3); }
+    .hg-container { background: rgba(30, 41, 59, 0.7); border-radius: 14px; padding: 12px; border: 1px solid rgba(255,255,255,0.05); text-align: right; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
     .hg-item { display: flex; flex-direction: column; gap: 2px; padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.1); min-height: 48px; justify-content: center; }
     .hg-item:last-of-type { border-bottom: none; padding-bottom: 0; min-height: auto; }
     .hg-label { font-size: 0.75rem; color: #94a3b8; font-weight: 600; }
@@ -1035,14 +1033,20 @@ document.addEventListener("DOMContentLoaded", () => {
     .hg-hidden { opacity: 0; transform: scale(0.5); visibility: hidden; }
     .hg-revealed { animation: surpriseReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; visibility: visible; }
     @keyframes surpriseReveal {
-      0% { opacity: 0; transform: scale(0.3) translateY(20px); }
-      60% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+      0% { opacity: 0; transform: scale(0.8) translateY(15px); filter: blur(4px); }
+      50% { opacity: 0.8; transform: scale(1.02) translateY(-2px); filter: blur(0); }
       100% { opacity: 1; transform: scale(1) translateY(0); }
     }
+    .hg-subtitles-list { display: flex; flex-direction: column; gap: 4px; max-height: 35vh; overflow-y: auto; padding: 4px 0; margin-top: 4px; }
+    .hg-subtitle-item { font-size: 0.85rem; padding: 8px 10px; border-radius: 8px; transition: all 0.3s ease; text-align: right; line-height: 1.4; }
+    .hg-subtitle-item.hg-disabled { opacity: 0.4; filter: grayscale(100%); font-size: 0.8rem; color: #94a3b8; }
+    .hg-subtitle-item.hg-selected { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(96, 165, 250, 0.1); color: #fbbf24; font-weight: 700; font-size: 0.9rem; border: 1px solid rgba(96, 165, 250, 0.25); text-shadow: 0 0 10px rgba(251, 191, 36, 0.2); position: relative; text-align: center; }
+    .hg-subtitle-item.hg-selected::before { content: "◀"; flex-shrink: 0; color: #60a5fa; font-size: 0.8em; }
+    .hg-subtitle-item.hg-selected::after { content: "▶"; flex-shrink: 0; color: #60a5fa; font-size: 0.8em; }
     .swal-retry-btn { margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 8px; border-radius: 10px; background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.3s; }
     .swal-retry-btn:hover { background: rgba(245,158,11,0.25); transform: translateY(-1px); }
-    .swal-custom-popup .swal2-icon { font-size: 2.2rem !important; width: auto !important; height: auto !important; border: none !important; margin: 0 0 6px !important; }
-    .swal-custom-title { font-size: 1.3rem !important; font-weight: 800 !important; padding: 0 !important; margin-bottom: 10px !important;}
+    .swal-custom-popup .swal2-icon { font-size: 1.5rem !important; width: auto !important; height: auto !important; border: none !important; margin: 0 0 4px !important; }
+    .swal-custom-title { font-size: 1.2rem !important; font-weight: 800 !important; padding: 0 !important; margin-bottom: 6px !important;}
     .swal-custom-btn { border-radius: 10px !important; font-weight: 600 !important; padding: 8px 20px !important; font-size: 0.85rem !important; width: 100% !important; }
     .swal-settings-popup { border-radius: 20px !important; padding: 24px 20px 18px !important; width: 420px !important; }
     .swal-settings-popup .swal2-title { font-size: 1.05rem !important; display: flex !important; align-items: center !important; gap: 8px !important; padding: 0 0 16px !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; margin-bottom: 16px !important; font-weight: 700 !important; }

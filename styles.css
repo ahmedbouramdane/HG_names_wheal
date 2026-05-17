@@ -149,7 +149,7 @@ body {
 
 .main-grid {
   display: grid;
-  grid-template-columns: var(--left-w, 1fr) var(--right-w, 1.3fr);
+  grid-template-columns: var(--left-w, 1fr) var(--right-w, 2fr);
   gap: 16px;
   align-items: stretch;
   position: relative;
@@ -287,32 +287,74 @@ body {
   flex-wrap: wrap;
   gap: 6px;
   min-height: 38px;
-  align-items: center;
+  align-items: flex-start;
+  align-content: flex-start;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+
+.student-list-display:hover {
+  scrollbar-color: rgba(100, 116, 139, 0.4) transparent;
+}
+
+.student-list-display::-webkit-scrollbar {
+  width: 5px;
+}
+
+.student-list-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.student-list-display::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.student-list-display:hover::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+}
+
+.student-list-display::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
 }
 
 .student-tag {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
+  user-select: none;
 }
 
 .student-tag:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
+  background: rgba(51, 65, 85, 0.8);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .student-tag.used {
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.04);
-  color: #475569;
+  background: rgba(15, 23, 42, 0.4);
+  border-color: rgba(255, 255, 255, 0.02);
+  color: #64748b;
+  text-decoration: line-through;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.student-tag.used:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
   text-decoration: line-through;
 }
 
@@ -389,11 +431,12 @@ textarea::placeholder {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 14px;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 560px;
+  flex: 1;
+  min-height: 0;
   position: relative;
 }
 
@@ -401,8 +444,21 @@ textarea::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
   width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+#wheel-canvas {
+  display: block;
+  margin: 0 auto;
+  /* make it take the hight and the width of container, remove the padding and margin */
+  width: 60% !important;
+  height: auto !important;
+  max-width: 900px;
+  max-height: 900px;
 }
 
 .wheel-canvas-wrapper {
@@ -577,52 +633,6 @@ textarea::placeholder {
 .toggle-switch input:checked + .toggle-slider::before {
   transform: translateX(20px);
   background: #fff;
-}
-
-.history-section {
-  padding: 12px 14px;
-}
-
-.history-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #64748b;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 8px;
-}
-
-.history-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.history-pill {
-  padding: 5px 14px;
-  border-radius: 16px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #cbd5e1;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  animation: fadeIn 0.25s ease;
-  transition: all 0.2s;
-}
-
-.history-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-1px);
-}
-
-.history-pill.latest {
-  color: #fbbf24;
-  background: rgba(251, 191, 36, 0.12);
-  border-color: rgba(251, 191, 36, 0.25);
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.08);
 }
 
 .glass-dark {
